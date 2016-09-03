@@ -1,15 +1,75 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TransactionLibrary
 {
-	class Transaction
+	class Transaction : INotifyPropertyChanged
 	{
-		public double Amount { get; private set; }
+		/// <summary>
+		/// проиошло событие - изменнеие свойства
+		/// </summary>
+		public event PropertyChangedEventHandler PropertyChanged;
 
-		public string Categry { get; private set; }
+		/// <summary>
+		/// произошло событие PropertyChanged
+		/// </summary>
+		/// <param name="name">имя изменившегося свойства</param>
+		private void RaisePropertyChanged(string name)
+		{
+			var handler = PropertyChanged;
+			if (handler != null)
+			{
+				handler(this, new PropertyChangedEventArgs(name));
+			}
+		}
+
+		
+		private double _Amount;
+		/// <summary>
+		/// Сумма транзакции
+		/// </summary>
+		public double Amount
+		{
+			get { return _Amount; }
+			set
+			{
+				if (value == _Amount)
+					return;
+				_Amount = value;
+				RaisePropertyChanged(nameof(Amount));
+				RaisePropertyChanged(nameof(IsDebit));
+			}
+		}
+
+
+		private string _Category;
+		/// <summary>
+		/// категория расхода/прихода
+		/// </summary>
+		public string Category
+		{
+			get { return _Category; }
+			set
+			{
+				if (value == _Category)
+					return;
+				_Category = value;
+				RaisePropertyChanged(nameof(Category));			
+			}
+		}
+
+		public DateTime DateTime { get; set; }
+
+		public enum Debit
+		{
+			Приход,
+			Расход
+		}
+
+		public Debit IsDebit { get; set; }
 	}
 }
