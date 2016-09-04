@@ -62,7 +62,21 @@ namespace TransactionLibrary
 			}
 		}
 
-		public DateTime DateTime { get; set; }
+		private DateTime _DateTime;
+		/// <summary>
+		/// Дата операции
+		/// </summary>
+		public DateTime DateTime
+		{
+			get { return _DateTime; }
+			set
+			{
+				if (value == _DateTime)
+					return;
+				_DateTime = value;
+				RaisePropertyChanged(nameof(DateTime));
+			}
+		}
 
 		public enum Debit
 		{
@@ -70,6 +84,28 @@ namespace TransactionLibrary
 			Расход
 		}
 
-		public Debit IsDebit { get; set; }
+		public Debit IsDebit
+		{
+			get
+			{
+				if (_Amount >= 0)
+					return Debit.Приход;
+				return Debit.Расход;					
+			}
+		}
+
+		private string _Comment;
+
+		public string Comment
+		{
+			get { return _Comment; }
+			set
+			{
+				if (value == _Comment)
+					return;
+				_Comment = value;
+				RaisePropertyChanged(nameof(Comment));
+			}
+		}
 	}
 }
