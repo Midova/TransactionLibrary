@@ -44,8 +44,7 @@ namespace TransactionLibrary
 				RaisePropertyChanged(nameof(IsDebit));
 			}
 		}
-
-
+		
 		private string _Category;
 		/// <summary>
 		/// категория расхода/прихода
@@ -84,6 +83,9 @@ namespace TransactionLibrary
 			Расход
 		}
 
+		/// <summary>
+		/// Передает приход или расход
+		/// </summary>
 		public Debit IsDebit
 		{
 			get
@@ -96,6 +98,9 @@ namespace TransactionLibrary
 
 		private string _Comment;
 
+		/// <summary>
+		/// Коментарий к транзакции
+		/// </summary>
 		public string Comment
 		{
 			get { return _Comment; }
@@ -107,5 +112,16 @@ namespace TransactionLibrary
 				RaisePropertyChanged(nameof(Comment));
 			}
 		}
+
+		public enum KindAccount
+		{
+			Наличные,
+			Безналичные
+		}
+
+		/// <summary>
+		/// Место списания/зачисления транзакции
+		/// </summary>
+		public KindAccount Account { get; private set; }
 	}
 }
