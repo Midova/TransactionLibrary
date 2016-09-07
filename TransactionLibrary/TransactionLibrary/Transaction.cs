@@ -9,6 +9,18 @@ namespace TransactionLibrary
 {
 	class Transaction : INotifyPropertyChanged
 	{
+
+		/// <summary>
+		/// Метод инициализации транзакции с параметрами
+		/// </summary>
+		/// <param name="amount">сумма транзакции</param>
+		/// <param name="category">категория транзакции</param>
+		public void Initialize(double amount, string category)
+		{
+			Amount = amount;
+			Category = category;
+		}		
+
 		/// <summary>
 		/// проиошло событие - изменнеие свойства
 		/// </summary>
@@ -18,8 +30,9 @@ namespace TransactionLibrary
 		/// произошло событие PropertyChanged
 		/// </summary>
 		/// <param name="name">имя изменившегося свойства</param>
-		private void RaisePropertyChanged(string name)
+		protected void RaisePropertyChanged(string name)
 		{
+			//обработчик
 			var handler = PropertyChanged;
 			if (handler != null)
 			{
@@ -27,7 +40,6 @@ namespace TransactionLibrary
 			}
 		}
 
-		
 		private double _Amount;
 		/// <summary>
 		/// Сумма транзакции
@@ -44,7 +56,7 @@ namespace TransactionLibrary
 				RaisePropertyChanged(nameof(IsDebit));
 			}
 		}
-		
+
 		private string _Category;
 		/// <summary>
 		/// категория расхода/прихода
@@ -57,23 +69,7 @@ namespace TransactionLibrary
 				if (value == _Category)
 					return;
 				_Category = value;
-				RaisePropertyChanged(nameof(Category));			
-			}
-		}
-
-		private DateTime _DateTime;
-		/// <summary>
-		/// Дата операции
-		/// </summary>
-		public DateTime DateTime
-		{
-			get { return _DateTime; }
-			set
-			{
-				if (value == _DateTime)
-					return;
-				_DateTime = value;
-				RaisePropertyChanged(nameof(DateTime));
+				RaisePropertyChanged(nameof(Category));
 			}
 		}
 
@@ -92,36 +88,10 @@ namespace TransactionLibrary
 			{
 				if (_Amount >= 0)
 					return Debit.Приход;
-				return Debit.Расход;					
+				return Debit.Расход;
 			}
 		}
-
-		private string _Comment;
-
-		/// <summary>
-		/// Коментарий к транзакции
-		/// </summary>
-		public string Comment
-		{
-			get { return _Comment; }
-			set
-			{
-				if (value == _Comment)
-					return;
-				_Comment = value;
-				RaisePropertyChanged(nameof(Comment));
-			}
-		}
-
-		public enum KindAccount
-		{
-			Наличные,
-			Безналичные
-		}
-
-		/// <summary>
-		/// Место списания/зачисления транзакции
-		/// </summary>
-		public KindAccount Account { get; private set; }
 	}
+
+		
 }
