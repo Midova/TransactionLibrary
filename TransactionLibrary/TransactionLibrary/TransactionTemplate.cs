@@ -9,7 +9,7 @@ namespace TransactionLibrary
     class TransactionTemplate : Transaction
     {
 		/// <summary>
-		/// 
+		/// Фабрика. Создаем TransactionPerfect с параметрами текущей TransactionTemplate
 		/// </summary>
 		/// <returns></returns>
 		public TransactionPerfect CreateOperation()
