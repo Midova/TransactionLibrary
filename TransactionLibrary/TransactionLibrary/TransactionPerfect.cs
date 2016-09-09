@@ -8,6 +8,69 @@ namespace TransactionLibrary
 {
 	class TransactionPerfect : Transaction
 	{
+
+		/// <summary>
+		/// Конструктор с 2-я параметрами.
+		/// </summary>
+		/// <param name="amount">сумма транзакции</param>
+		/// <param name="category">категория транзакции</param>
+		public TransactionPerfect(double amount, string category)
+		{
+			Amount = amount;
+			Category = category;
+			DateTime = DateTime.Now;
+			Comment = "";
+			KindAccount = AccountType.Наличные;
+		}
+
+		/// <summary>
+		/// Конструктор с 3-я параметрами.
+		/// </summary>
+		/// <param name="amount">сумма транзакции</param>
+		/// <param name="category">категория транзакции</param>
+		/// <param name="dateTime">дата транзакции</param>
+		public TransactionPerfect(double amount, string category, DateTime dateTime)
+		{
+			Amount = amount;
+			Category = category;
+			DateTime = dateTime;
+			Comment = "";
+			KindAccount = AccountType.Наличные;
+		}
+
+		/// <summary>
+		/// Конструктор с 4-ю параметрами.
+		/// </summary>
+		/// <param name="amount">сумма транзакции</param>
+		/// <param name="category">категория транзакции</param>
+		/// <param name="dateTime">дата транзакции</param>
+		/// <param name="comment">коментарий к транзакции</param>
+		public TransactionPerfect(double amount, string category, DateTime dateTime, string comment)
+		{
+			Amount = amount;
+			Category = category;
+			DateTime = dateTime;
+			Comment = comment;
+			KindAccount = AccountType.Наличные;
+		}
+
+		/// <summary>
+		/// Конструктор с 5-ю параметрами.
+		/// </summary>
+		/// <param name="amount">сумма транзакции</param>
+		/// <param name="category">категория транзакции</param>
+		/// <param name="dateTime">дата транзакции</param>
+		/// <param name="comment">коментарий к транзакции</param>
+		/// <param name="kindAccount">тип счета транзакции</param>
+		public TransactionPerfect(double amount, string category, DateTime dateTime, string comment, AccountType kindAccount)
+		{
+			Amount = amount;
+			Category = category;
+			DateTime = dateTime;
+			Comment = comment;
+			KindAccount = kindAccount;
+		}
+
 		private DateTime _DateTime;
  		/// <summary>
  		/// Дата операции.

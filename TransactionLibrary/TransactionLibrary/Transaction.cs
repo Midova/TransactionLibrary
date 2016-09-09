@@ -11,7 +11,7 @@ namespace TransactionLibrary
 	{
 
 		/// <summary>
-		/// Метод инициализации транзакции с параметрами
+		/// Метод инициализации транзакции с параметрами.
 		/// </summary>
 		/// <param name="amount">сумма транзакции</param>
 		/// <param name="category">категория транзакции</param>
@@ -22,17 +22,17 @@ namespace TransactionLibrary
 		}		
 
 		/// <summary>
-		/// проиошло событие - изменнеие свойства
+		/// проиошло событие - изменнеие свойства.
 		/// </summary>
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		/// <summary>
-		/// произошло событие PropertyChanged
+		/// произошло событие PropertyChanged.
 		/// </summary>
 		/// <param name="name">имя изменившегося свойства</param>
 		protected void RaisePropertyChanged(string name)
 		{
-			//обработчик
+			//обработчик.
 			var handler = PropertyChanged;
 			if (handler != null)
 			{
@@ -42,7 +42,7 @@ namespace TransactionLibrary
 
 		private double _Amount;
 		/// <summary>
-		/// Сумма транзакции
+		/// Сумма транзакции.
 		/// </summary>
 		public double Amount
 		{
@@ -59,7 +59,7 @@ namespace TransactionLibrary
 
 		private string _Category;
 		/// <summary>
-		/// категория расхода/прихода
+		/// категория транзакции.
 		/// </summary>
 		public string Category
 		{
@@ -80,7 +80,7 @@ namespace TransactionLibrary
 		}
 
 		/// <summary>
-		/// Передает приход или расход
+		/// Передает приход или расход.
 		/// </summary>
 		public Debit IsDebit
 		{
