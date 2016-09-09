@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace TransactionLibrary
 {
-    class TransactionTemplate
+    class TransactionTemplate : Transaction
     {
-    }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public TransactionPerfect CreateOperation()
+		{
+			var TemplateChange = new TransactionPerfect(Amount, Category);
+			return TemplateChange;
+		}
+
+	}
 }
