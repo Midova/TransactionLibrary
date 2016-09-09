@@ -15,7 +15,7 @@ namespace TransactionLibrary
 		/// </summary>
 		/// <param name="amount">сумма транзакции</param>
 		/// <param name="category">категория транзакции</param>
-		public Transaction(double amount, string category)
+		public void Initialize(double amount, string category)
 		{
 			Amount = amount;
 			Category = category;
