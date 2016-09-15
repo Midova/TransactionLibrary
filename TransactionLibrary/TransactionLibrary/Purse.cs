@@ -50,8 +50,31 @@ namespace TransactionLibrary
 		{
 			get
 			{
-				
+				double balance = 0D;
+				foreach (TransactionPerfect transaction in PerfectTransaction)
+				{
+					balance = balance + transaction.Amount;
+				}
+				return balance;
 			}
+		}
+
+		public IEnumerable<TransactionPerfect> GetTransactionPeriod(DateTime startDate, DateTime endDate)
+		{
+			List<TransactionPerfect> whileIncome = new List<TransactionPerfect>();
+			foreach (TransactionPerfect item in PerfectTransaction)
+			{
+				if (item.DateTime >= startDate & item.DateTime <= endDate)
+				{
+					whileIncome.Add(item);
+				}
+				if (whileIncome.Count == 0)
+				{
+					Console.WriteLine("Операций в заданый период не совершалось");
+				}
+			}
+			return whileIncome;
+
 		}
 
 		public double GetIncomePeriod(DateTime startDate, DateTime endDate)
@@ -64,9 +87,6 @@ namespace TransactionLibrary
 
 		}
 
-		public IEnumerable<TransactionPerfect> GetTransactionPeriod(DateTime startDate, DateTime endDate)
-		{
-
-		}
+		
 	}
 }
