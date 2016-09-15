@@ -73,12 +73,6 @@ namespace TransactionLibrary
 			}
 		}
 
-		public enum Debit
-		{
-			Приход,
-			Расход
-		}
-
 		/// <summary>
 		/// Передает приход или расход.
 		/// </summary>

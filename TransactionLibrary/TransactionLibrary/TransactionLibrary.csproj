@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountType.cs" />
+    <Compile Include="Debit.cs" />
     <Compile Include="Purse.cs" />
     <Compile Include="TransactionFuture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

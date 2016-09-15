@@ -39,7 +39,7 @@ namespace TransactionLibrary
 		}
 
 		/// <summary>
-		/// Конструктор с 4-ю параметрами.
+		/// Конструктор с 4-a параметрами.
 		/// </summary>
 		/// <param name="amount">сумма транзакции</param>
 		/// <param name="category">категория транзакции</param>
@@ -103,12 +103,6 @@ namespace TransactionLibrary
  				RaisePropertyChanged(nameof(Comment));
  			}
  		}
-
-		public enum AccountType
-		{
-			Наличные, 
-			Безналичные
-		}
 
 		private AccountType _KindAccount;
 		/// <summary>
