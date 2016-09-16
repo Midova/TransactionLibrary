@@ -47,17 +47,17 @@ namespace TransactionLibrary
 		public ObservableCollection<TransactionFuture> FutureTransaction { get; set; }
 
 		/// <summary>
-		/// получает баланс
+		/// получает баланс кошелька
 		/// </summary>
 		public double GetBalance
 		{
 			get
 			{
 				double balance = 0D;
-				foreach (TransactionPerfect transaction in PerfectTransaction)
-				{
+
+				foreach (TransactionPerfect transaction in PerfectTransaction)				
 					balance = balance + transaction.Amount;
-				}
+								
 				return balance;
 			}
 		}
@@ -78,7 +78,7 @@ namespace TransactionLibrary
 			}
 				
 			if (whileTransaction.Count == 0)				
-			Console.WriteLine("Операций в заданый период не совершалось");				
+				Console.WriteLine("Операций в заданый период не совершалось");				
 			
 			return whileTransaction;
 		}
