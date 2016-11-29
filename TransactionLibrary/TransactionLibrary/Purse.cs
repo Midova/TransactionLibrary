@@ -1,40 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TransactionLibrary
 {
-	class Purse
-	{
-		
+	public class Purse
+	{		
 		public Purse()
 		{
-			NamePursr = "";
-			PerfectTransaction = new ObservableCollection<TransactionPerfect>();
+			NamePursr = string.Empty;
+			MadeTransaction = new ObservableCollection<TransactionMade>();
 			TemplateTransaction = new ObservableCollection<TransactionTemplate>();
 			FutureTransaction = new ObservableCollection<TransactionFuture>();
 		}
 		
-		public Purse (string namePurse)
+		public Purse (string namePurse) : this()
 		{
-			NamePursr = namePurse;
-			PerfectTransaction = new ObservableCollection<TransactionPerfect>();
-			TemplateTransaction = new ObservableCollection<TransactionTemplate>();
-			FutureTransaction = new ObservableCollection<TransactionFuture>();
+			NamePursr = namePurse;			
 		}
 		
 		/// <summary>
 		/// название кошелька
 		/// </summary>
-		public string NamePursr { get; private set; }
+		public string NamePursr { get; set; }
 
 		/// <summary>
 		/// Список совершенных операций
 		/// </summary>
-		public ObservableCollection<TransactionPerfect> PerfectTransaction { get; set; }
+		public ObservableCollection<TransactionMade> MadeTransaction { get; set; }
 
 		/// <summary>
 		/// Список шаблонов транзакций
@@ -55,8 +52,8 @@ namespace TransactionLibrary
 			{
 				double balance = 0D;
 
-				foreach (TransactionPerfect transaction in PerfectTransaction)				
-					balance = balance + transaction.Amount;
+				foreach (TransactionMade transaction in MadeTransaction)				
+					balance += transaction.Amount;
 								
 				return balance;
 			}
@@ -68,19 +65,11 @@ namespace TransactionLibrary
 		/// <param name="startDate">начало периода</param>
 		/// <param name="endDate">конец периода</param>
 		/// <returns>список транзакций за заданый период</returns>
-		public IEnumerable<TransactionPerfect> GetTransactionPeriod(DateTime startDate, DateTime endDate)
+		public IEnumerable<TransactionMade> GetTransactionPeriod(DateTime startDate, DateTime endDate)
 		{
-			List<TransactionPerfect> whileTransaction = new List<TransactionPerfect>();
-			foreach (TransactionPerfect item in PerfectTransaction)
-			{
-				if (item.DateTime >= startDate && item.DateTime <= endDate)
-					whileTransaction.Add(item);
-			}
-				
-			if (whileTransaction.Count == 0)				
-				Console.WriteLine("Операций в заданый период не совершалось");				
-			
-			return whileTransaction;
+			var matches = MadeTransaction.Where(item => item.DateTime >= startDate && item.DateTime <= endDate);
+
+			return new List<TransactionMade>(matches);
 		}
 
 		/// <summary>
@@ -90,12 +79,12 @@ namespace TransactionLibrary
 		/// <param name="endDate">конец периода</param>
 		/// <param name="accountType">тип счета</param>
 		/// <returns>список транзакий</returns>
-		public IEnumerable<TransactionPerfect> GetTransactionPeriod(DateTime startDate, DateTime endDate, AccountType accountType)
+		public IEnumerable<TransactionMade> GetTransactionPeriod(DateTime startDate, DateTime endDate, AccountType accountType)
 		{
-			List<TransactionPerfect> whileTransaction = new List<TransactionPerfect>();
-			whileTransaction = (List<TransactionPerfect>)GetTransactionPeriod(startDate, endDate);
+			List<TransactionMade> whileTransaction = new List<TransactionMade>();
+			whileTransaction = (List<TransactionMade>)GetTransactionPeriod(startDate, endDate);
 
-			foreach (TransactionPerfect item in PerfectTransaction)
+			foreach (TransactionMade item in MadeTransaction)
 			{
 				if (item.KindAccount == accountType)
 					whileTransaction.Add(item);
@@ -113,13 +102,10 @@ namespace TransactionLibrary
 		/// <returns>cумма прихода/расхода</returns>
 		public double GetIncomeCostPeriod(Debit debit, DateTime startDate, DateTime endDate)
 		{
-			List<TransactionPerfect> transactionIncomeCost = new List<TransactionPerfect>();
-			transactionIncomeCost = (List<TransactionPerfect>)GetTransactionPeriod(startDate, endDate);
-			double sum = 0D;			
-
-			foreach (TransactionPerfect item in transactionIncomeCost)			
-				if (item.IsDebit==debit)				
-					sum = sum + item.Amount;
+			List<TransactionMade> transactionIncomeCost = new List<TransactionMade>();
+			transactionIncomeCost = (List<TransactionMade>)GetTransactionPeriod(startDate, endDate);
+			
+			var sum = transactionIncomeCost.Where(item => item.IsDebit == debit).Sum(item => item.Amount);			
 
 			return sum;
 		}
@@ -134,15 +120,17 @@ namespace TransactionLibrary
 		/// <returns>сумма прихода/расхода</returns>
 		public double GetIncomeCostPeriod(Debit debit, DateTime startDate, DateTime endDate, AccountType accountType)
 		{
-			List<TransactionPerfect> transactionIncomeCost = new List<TransactionPerfect>();
-			transactionIncomeCost = (List<TransactionPerfect>)GetTransactionPeriod(startDate, endDate, accountType);
+			List<TransactionMade> transactionIncomeCost = new List<TransactionMade>();
+			transactionIncomeCost = (List<TransactionMade>)GetTransactionPeriod(startDate, endDate, accountType);
 			double sum = 0D;
 
-			foreach (TransactionPerfect item in transactionIncomeCost)			
+			foreach (TransactionMade item in transactionIncomeCost)			
 				if (item.IsDebit == debit)
 					sum = sum + item.Amount;		
 
 			return sum;
 		}
+
+		
 	}
 }

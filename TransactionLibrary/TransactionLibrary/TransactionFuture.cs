@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace TransactionLibrary
 {
-    class TransactionFuture : Transaction
-    {
-    }
+	public class TransactionFuture : Transaction
+	{
+		public TransactionFuture()
+		{
+			// NOTE: нужен для сериализации.
+		}
+
+		// NOTE: пока не ясно что тут
+		public TransactionFuture(double amount, string category) : base(amount, category)
+		{
+		}
+	}
 }

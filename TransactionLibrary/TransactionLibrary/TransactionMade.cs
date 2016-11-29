@@ -6,21 +6,18 @@ using System.Threading.Tasks;
 
 namespace TransactionLibrary
 {
-	class TransactionPerfect : Transaction
+	public class TransactionMade : Transaction
 	{
-
 		/// <summary>
 		/// Конструктор с 2-я параметрами.
 		/// </summary>
 		/// <param name="amount">сумма транзакции</param>
 		/// <param name="category">категория транзакции</param>
-		public TransactionPerfect(double amount, string category)
+		public TransactionMade(double amount, string category) : base (amount, category)
 		{
-			Amount = amount;
-			Category = category;
 			DateTime = DateTime.Now;
-			Comment = "";
-			KindAccount = AccountType.Наличные;
+			Comment = string.Empty;
+			KindAccount = AccountType.Cash;
 		}
 
 		/// <summary>
@@ -29,13 +26,20 @@ namespace TransactionLibrary
 		/// <param name="amount">сумма транзакции</param>
 		/// <param name="category">категория транзакции</param>
 		/// <param name="dateTime">дата транзакции</param>
-		public TransactionPerfect(double amount, string category, DateTime dateTime)
+		public TransactionMade(double amount, string category, DateTime dateTime) : this(amount, category)
 		{
-			Amount = amount;
-			Category = category;
 			DateTime = dateTime;
-			Comment = "";
-			KindAccount = AccountType.Наличные;
+		}
+
+		/// <summary>
+		/// Конструктор с 3-я параметрами.
+		/// </summary>
+		/// <param name="amount">сумма транзакции</param>
+		/// <param name="category">категория транзакции</param>
+		/// <param name="dateTime">дата транзакции</param>
+		public TransactionMade(double amount, string category, AccountType kindAccount) : this(amount, category)
+		{
+			KindAccount = kindAccount;
 		}
 
 		/// <summary>
@@ -45,13 +49,10 @@ namespace TransactionLibrary
 		/// <param name="category">категория транзакции</param>
 		/// <param name="dateTime">дата транзакции</param>
 		/// <param name="comment">коментарий к транзакции</param>
-		public TransactionPerfect(double amount, string category, DateTime dateTime, string comment)
-		{
-			Amount = amount;
-			Category = category;
+		public TransactionMade(double amount, string category, DateTime dateTime, string comment) : this(amount, category)
+		{			
 			DateTime = dateTime;
-			Comment = comment;
-			KindAccount = AccountType.Наличные;
+			Comment = comment;			
 		}
 
 		/// <summary>
@@ -62,16 +63,24 @@ namespace TransactionLibrary
 		/// <param name="dateTime">дата транзакции</param>
 		/// <param name="comment">коментарий к транзакции</param>
 		/// <param name="kindAccount">тип счета транзакции</param>
-		public TransactionPerfect(double amount, string category, DateTime dateTime, string comment, AccountType kindAccount)
+		public TransactionMade(double amount, string category, DateTime dateTime, string comment, AccountType kindAccount) : this(amount, category)
 		{
-			Amount = amount;
-			Category = category;
 			DateTime = dateTime;
 			Comment = comment;
 			KindAccount = kindAccount;
 		}
 
+		public TransactionMade()
+		{
+			Amount = 0;
+			Category = string.Empty;
+			DateTime = DateTime.Now;
+			Comment = string.Empty;
+			KindAccount = AccountType.Cash;
+		}
+
 		private DateTime _DateTime;
+
  		/// <summary>
  		/// Дата операции.
  		/// </summary>
@@ -82,6 +91,7 @@ namespace TransactionLibrary
  			{
  				if (value == _DateTime)
  					return;
+
  				_DateTime = value;
  				RaisePropertyChanged(nameof(DateTime));
  			}
@@ -105,6 +115,7 @@ namespace TransactionLibrary
  		}
 
 		private AccountType _KindAccount;
+
 		/// <summary>
 		/// Место проведения транзакции.
 		/// </summary>
@@ -115,6 +126,7 @@ namespace TransactionLibrary
 			{
 				if (value == _KindAccount)
 					return;
+
 				_KindAccount = value;
 				RaisePropertyChanged(nameof(KindAccount));
 			}

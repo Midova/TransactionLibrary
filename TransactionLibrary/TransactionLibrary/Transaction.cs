@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Catel.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,42 +8,29 @@ using System.Threading.Tasks;
 
 namespace TransactionLibrary
 {
-	class Transaction : INotifyPropertyChanged
-	{
-
+	public abstract class Transaction : ObservableObject
+	{ 
 		/// <summary>
 		/// Метод инициализации транзакции с параметрами.
 		/// </summary>
 		/// <param name="amount">сумма транзакции</param>
 		/// <param name="category">категория транзакции</param>
-		public void Initialize(double amount, string category)
+		public Transaction(double amount, string category)
 		{
 			Amount = amount;
 			Category = category;
-		}		
+		}
 
-		/// <summary>
-		/// проиошло событие - изменнеие свойства.
-		/// </summary>
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		/// <summary>
-		/// произошло событие PropertyChanged.
-		/// </summary>
-		/// <param name="name">имя изменившегося свойства</param>
-		protected void RaisePropertyChanged(string name)
+		public Transaction()
 		{
-			//обработчик.
-			var handler = PropertyChanged;
-			if (handler != null)
-			{
-				handler(this, new PropertyChangedEventArgs(name));
-			}
+			Amount = 0;
+			Category = string.Empty;
 		}
 
 		private double _Amount;
+
 		/// <summary>
-		/// Сумма транзакции.
+		/// Задает или возвпащает Сумма транзакции.
 		/// </summary>
 		public double Amount
 		{
@@ -51,6 +39,7 @@ namespace TransactionLibrary
 			{
 				if (value == _Amount)
 					return;
+
 				_Amount = value;
 				RaisePropertyChanged(nameof(Amount));
 				RaisePropertyChanged(nameof(IsDebit));
@@ -58,6 +47,7 @@ namespace TransactionLibrary
 		}
 
 		private string _Category;
+
 		/// <summary>
 		/// категория транзакции.
 		/// </summary>
@@ -81,11 +71,10 @@ namespace TransactionLibrary
 			get
 			{
 				if (_Amount >= 0)
-					return Debit.Приход;
-				return Debit.Расход;
-			}
-		}
-	}
+					return Debit.Parish;
 
-		
+				return Debit.Spending;
+			}
+		}		
+	}
 }

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace TransactionLibrary
 {
 	public enum AccountType
-	{
-		Наличные,
-		Безналичные
+	{		
+		Cash,
+		Bank
 	}
 }

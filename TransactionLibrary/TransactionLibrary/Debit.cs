@@ -8,7 +8,7 @@ namespace TransactionLibrary
 {
 	public enum Debit
 	{
-		Приход,
-		Расход
+		Parish,
+		Spending
 	}
 }
